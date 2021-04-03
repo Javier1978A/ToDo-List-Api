@@ -54,7 +54,7 @@ const TodoForm = ({ todoAdd, todoEdit, todoUpdate, setTodoEdit }) => {
     }
     return (
         <div>
-            <h2 className='text-center display-4'>{todoEdit ? 'Editar tarea' : 'Nueva tarea'}</h2>
+            <h2 className='text-center display-4 text-uppercase fw-light text-decoration-underline'>{todoEdit ? 'Editar tarea' : 'Nueva tarea'}</h2>
             {
                 todoEdit &&
                 <button
@@ -81,7 +81,7 @@ const TodoForm = ({ todoAdd, todoEdit, todoUpdate, setTodoEdit }) => {
 
                 </textarea>
                 <div className='d-grid gap-2'>
-                    <button className='btn btn-primary mt-3 '>
+                    <button className='btn btn-primary mt-3  '>
                         {todoEdit ? 'Actualizar tarea' : 'Agregar Tarea'}
                     </button>
                 </div>

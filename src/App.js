@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
+import axios from 'axios'
 
 
 const initialTodos = [
@@ -20,20 +21,32 @@ const initialTodos = [
 ]
 
 const localTodos = JSON.parse(localStorage.getItem('todos'))
-const App = () => {
-    const [todos, setTodos] = useState(localTodos || initialTodos);
-    const [todoEdit, setTodoEdit] = useState(null);
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos))
-    }, [todos]);
 
-    const todoDelete = (todoId) => {
+const App = () => {
+    const [todos, setTodos] = useState([]);
+    const [todoEdit, setTodoEdit] = useState(null);
+
+    const obtenerTasks = async () => {
+        const resp = await axios.get('https://6067816798f405001728ef14.mockapi.io/tasks')
+        await setTodos(resp.data)
+
+    }
+    useEffect(() => {
+        obtenerTasks()
+        /* localStorage.setItem('todos', JSON.stringify(todos)) */
+    }, []);
+
+
+    const todoDelete = async (todoId) => {
         if (todoEdit && todoId === todoEdit.id) {
             setTodoEdit(null)
         }
-        const changedTodos = todos.filter(todo => todo.id !== todoId);
+        await axios.delete(`https://6067816798f405001728ef14.mockapi.io/tasks/` + todoId)
+        obtenerTasks()
 
-        setTodos(changedTodos)
+        /* const changedTodos = todos.filter(todo => todo.id !== todoId);
+
+        setTodos(changedTodos) */
     }
 
     const todoToggleCompleted = (todoId) => {
@@ -61,25 +74,17 @@ const App = () => {
         setTodos(changedTodos)
     }
 
-    const todoAdd = (todo) => {
-        const newTodo = {
-            id: Date.now(),
-            ...todo,
-            completed: false
-        }
+    const todoAdd = async (todo) => {
+        await axios.post(`https://6067816798f405001728ef14.mockapi.io/tasks`, { title: todo.title, description: todo.description, completed: false })
 
+        obtenerTasks()
 
-
-        setTodos([...todos, newTodo])
     }
-    const todoUpdate = (todoEdit) => {
-        const changedTodos = todos.map(todo => (
-            todo.id === todoEdit.id
-                ? todoEdit
-                : todo
-        ))
+    const todoUpdate = async (todoEdit) => {
+        console.log(todoEdit)
+        await axios.put(`https://6067816798f405001728ef14.mockapi.io/tasks/` + todoEdit.id, { title: todoEdit.title, description: todoEdit.description })
 
-        setTodos(changedTodos)
+        obtenerTasks()
     }
     return (
         <div className='conteiner mt-4'>

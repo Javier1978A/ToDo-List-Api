@@ -68,3 +68,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+El trabajo fue hecho a base de una practica de To Do list en React vista en un curso de Udemy que estoy realizando, son mis primeros pasos en el framework, se le hicieron los cambios pertinentes para poder trabajar con una API, fueron manipulados las funciones DELETE, GET, POST Y PUT. Mi orientacion es hacia el Front End, el Back End no es mi espcecialidad, pero podria aprenderlo de ser necesario.-
